@@ -1,0 +1,11 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+Main -> Menu: Calls log-in func
+Menu -> TextUI: Calls binary prompt
+Menu <-- TextUI: Returns true if
+FileIO -> Main
+
+@enduml

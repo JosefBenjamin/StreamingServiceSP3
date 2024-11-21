@@ -1,0 +1,78 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+
++class Main {
++static void main(String[])
+
+}
+
+class StreamingService{
++ login(String username, String password)
++ registration(String username, String password)
+}
+
++class FileIO{
+-
++readData(String str, int type)
++writeData()
+- Scanner scanner;
+- ArrayList<Media> MediaContent;
+}
+
+abstract Media extends Library{
+- ArrayList <Genre>
+- String title
+- int releaseYear
+- float rating [%.1f]
+- savedList(Media) : boolean
+- watchLater(Media) : boolean
++ addGenre(String genre)
++ removeGenre(String genre)
++ stopPlaying()
+- isPlaying: boolean
++ playMedia()
+
+}
+
+class Series extends Media{
+- ArrayList<Genre> genre
+- ArrayList<Genre> watcherLater
+- savedList() : boolean
+- watchLater() : boolean
+- isPlaying: boolean
++ playMedia()
+
+}
+
+class Movie extends Media{
+-ArrayList<Genre> genre
+-savedList() : boolean
+-watchLater() : boolean
+- isPlaying: boolean
++ playMedia()
+
+}
+
+class User {
+- String username
+- String password
+- ArrayList<Media> watchLater
+- ArrayList<Media> watchedAlready
++ addMovieToWatchLate(Media): ArrayList<MediaContent>
++ removeMovieFromWatchLater(Media): ArrayList<MediaContent>
++ addSeriesToWatchLater(Media): ArrayList<MediaContent>
++ removeSeriesFromWatchLater(Media): ArrayList<MediaContent>
+}
+
++class Library  {
++getTitle(String title): Media
++getExactYear(int releaseYear): Media
++getFromThisYear(int releaseYear): Media
++getAfterThisYear(int releaseYear): Media
++getWithinYears(int startPeriod, int endPeriod): Media
++getGenre(Genre): Media
+}
+
+@enduml
