@@ -1,37 +1,76 @@
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 
-public class User {
+class User {
+    //Attributes begin here
     private String username;
-    private String password;
-    boolean isAdmin;
+    private static ArrayList<Media> seen;
+    private static ArrayList<Media> later;
+    private boolean isAdmin;
 
-    public User(String username, String password) {
+    //Constructor
+    public User(String username) {
         this.username = username;
-        this.password = password;
         this.isAdmin = false;
+        this.later = new ArrayList<>();
+        this.seen  = new ArrayList<>();
     } //  Constructor
 
     // make it so user cannot use "::" in a password or username;
 
-    // 'if (String password.matches("::") || String username.matches("::")){
-    // System.out.println("You're not allowed to use repeated \":\" symbols in your password or username\nPlease chose another username or password");
-    // *recursion*
-    // }
+    public boolean  isAdmin(){
+        boolean result = false;
+        if (this.isAdmin){
+            result = true;
+        }   // end if statement
+        return result;
+    }   // end isAdmin()
+
+    public  void addToLater(Media media){
+        later.add(media);
+    }   // end addToLater()
+
+    public  void removeFromLater(Media media){
+        later.remove(media);
+    }   // end removeFromLater()
+
+    public static void addToSeen(Media media){
+        seen.add(media);
+    }   // end addToSeen()
+
+    public  void removeFromSeen(Media media){
+        seen.remove(media);
+    }   // end removeFromSeen
+
+    //Getter method for Media ArrayList object
+    public ArrayList<Media> getSeen(){
+        return seen;
+    }   // end getSeen()
+
+    public ArrayList<Media> getLater() {
+        return later;
+    }
+
+@Override
+    public String toString(){
+        return this.username;
+    }
+
 
      private static final String USER_DATA = "src/main/java/files/Users.txt";
-
-    public static void createUser(String username, String password) {
+/*
+     public static void createUser(String username, String password) {
         if (isUsernameTaken(username)) {
             System.out.println("Sorry! Username not available");
-            return;
+
         } else {
 
         try (FileWriter writer = new FileWriter(USER_DATA, true)) {
-            writer.write(username + "::" + password + "::1" +"\n");                 // "1" is added to show that a newly created user is NOT an admin ("0" means admin)
+            writer.write(username + "::" + password + ":: Not Admin" +"\n");                 // Default user is not admin, there is only one admin user that is already made
             System.out.println("User created successfully!");
         } catch (IOException e) {
             System.out.println("Error saving user: \n");
@@ -39,10 +78,10 @@ public class User {
             }   // end try-catch-block
         }   // end if-else statement
     }   // end createUser()
+*/
 
-
-    public static boolean isUsernameTaken(String username) {
-        File file = new File(USER_DATA);                                                  // Declares & instantiates a File Object based on the path USER_DATA which is defined in global-scope
+    public static boolean isUsernameTaken(String username, String usersPath) {
+        File file = new File(usersPath);                                                  // Declares & instantiates a File Object based on the path USER_DATA which is defined in global-scope
         try (Scanner scan = new Scanner(file)) {                                          // We have chosen to put the declaration and instantiation of the Scanner Object inside a try-catch block
                                                                                           // Since the Scanner Object will close by itself
 
@@ -50,16 +89,18 @@ public class User {
                 String line = scan.nextLine();                                            // Declares and instantiates the variable line as the current/next line
                 String[] sections = line.split("::");                               // Declares and instantiates an array 'sections'.
                                                                                           // The Array contains 3 indies [0]-username, [1]-password, [2]-permission status
-                if (    sections.length !=2 ||
+                if (
                         sections.length > 0 && sections[0].equals(username)) {
                     return true;                                                          // When func returns true it means that the username is preoccupied
-                }
-            }
+                }   // if-else statement
+            }   // end while loop
         } catch (FileNotFoundException e) {
             System.out.println("Error reading user data: " + e.getMessage());
-        }
+        }   // end try-catch block
         return false;                                                                     // When func returns false it means the username is available
-    }
+    }   // end isUsernameTaken()
+
+
 
     public static boolean login(String username, String password) {
 
@@ -77,16 +118,17 @@ public class User {
                         sections[0].equals(username) &&                                     // Compares the username in the file with the input username.
                         sections[1].equals(password)) {                                     // Compares the password in the file with the input password.
                     return true;                                                            // If both match, the method returns true, indicating successful login.
-                }   // end if-statement
-            }   // end while-loop
-        } // catch (FileNotFoundException e) {                                                 // Handles the case where the file is not found.
-            // System.out.println("Error: User data file not found. " + e.getMessage());
-        // }   // end try-catch block
+                }
 
-        return false;                                                                       // If no matching username-password pair is found, return false.
-    }   // end login()
+                                                                                            // If no matching username-password pair is found, return false.
+            }
+        }
+        return false;
+    } // end login()
 
-
+    public User getCurrentUser(){
+         return this;
+    }
 
 /*
     public static boolean login(String username, String password) {
@@ -105,10 +147,15 @@ public class User {
     }
 
  */
-
-    public static void main(String[] args) {
+/*
+    public static void ikkemain(int ihh) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome\n");
+
+        String str = "src/main/java/files/film.txt";
+       // ArrayList<Media> aL = new FileIO().readMediaData(str);
+
+      //  System.out.println(aL.get(2));
 
         while (true) {
             System.out.println("Choose an option:");
@@ -138,9 +185,9 @@ public class User {
                         //her kan vi kalde en menu function så man bliver tilbudt at søge/vælge film eller serier osv.
                         //inde i den funktion kan vi have endnu en switch.
 
-                    } else {
+                        } else {
                         System.out.println("Invalid username or password.");
-                    }
+                        }
                     break;
 
                 case 3: // Exit
@@ -153,9 +200,10 @@ public class User {
             }
         }
     }
-
+ */
 
 
 }
+
 
 

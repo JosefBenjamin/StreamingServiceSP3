@@ -1,2 +1,3 @@
 Admin::SuddMienPic::0
 defaultUser::test::1
+JuiceControlTheWeather::SuddMienPic::1

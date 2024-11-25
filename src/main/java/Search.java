@@ -11,8 +11,8 @@ public class Search {
     final String series = "src/main/java/files/serier.txt";
 
     public Search(){
-        this.movieContent = new FileIO().readMediaData(movies);
-        this.seriesContent = new FileIO().readMediaData(series);
+        //this.movieContent = new FileIO().readMediaData(movies);
+        //this.seriesContent = new FileIO().readMediaData(series);
     }   // Constructor
 
 

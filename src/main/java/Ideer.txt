@@ -1,0 +1,1 @@
+Search func, kan søge i titler/kategorier/årstal

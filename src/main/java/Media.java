@@ -1,8 +1,9 @@
 import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
-public abstract class Media extends Search{
+public abstract class Media{
     protected String title;
     protected float rating;
     protected int releaseYear;
@@ -44,21 +45,7 @@ public abstract class Media extends Search{
         saved = new ArrayList<>();
     }   // Constructor for series
 
-    public void addToHasSeen(Media media) {
-        this.hasSeen.add(media);
-    }   // addToHasSeen()
 
-    public ArrayList<Media> getHasSeen(){
-        return this.hasSeen;
-    }   // getHasSeen()
-
-    public void saved(Media media) {
-        this.saved.add(media);
-    }   // addSaved()
-
-    public ArrayList<Media> getSaved(){
-        return this.saved;
-    }   // getSaved()
 
     public void addGenre(String genre) {
         this.genre.add(genre.trim());
@@ -71,6 +58,8 @@ public abstract class Media extends Search{
     public void playMedia(){
         this.isPlaying = true;
         System.out.println(getTitle() + " is currently playing");
+
+        User.addToSeen(this);
         // Add more code l8r
         // prints in console "[movie/series name] is currently playing"
     }   // end playMedia()
@@ -103,17 +92,31 @@ public abstract class Media extends Search{
     }   // end getGenre()
 
     public String getRunningYears() {
-        return this.runningYears;
+        String result = "";
+        if (this instanceof Series){
+            result += this.runningYears;
+        } else {
+            result = null;
+        }   // end if-else statement
+        return result;
     }   // end getRunningYears()
 
-    public HashMap<Integer, Integer> getSeasonAndEpisodes(){
+    public HashMap<Integer, Integer> getSeasonAndEpisodes() {
         HashMap<Integer, Integer> result = new HashMap<>();
-        if (this instanceof Series){
+        if (this instanceof Series) {
             result = seasonsAndEpisodes;
-        }   else {
+        }   else    {
             result = null;
         }   // end if-else statement
         return result;
     }   // end getSeasonAndEpisodes
 
-}
+    /*
+    public Media createMovie (User user){
+        Media result = null;
+        Scanner scan = new Scanner(System.in);
+        if (user.isAdmin()){
+
+        }
+    }*/
+}   // end Media

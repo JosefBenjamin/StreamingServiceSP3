@@ -8,7 +8,11 @@ import java.util.Scanner;
 
 public class FileIO {
 
-    public static ArrayList<Media> readMediaData(String path) {
+    FileIO(){
+
+    }
+
+    public static ArrayList<Media> readMovieData(String path) {
         ArrayList<Media> data = new ArrayList();
         Media media;
         File file = new File(path);                                              // Declares a File Object, and instantiates the Object with the path given as argument for the func
@@ -24,8 +28,8 @@ public class FileIO {
                                                                                  // We're using parseInt to typecast from string to int
                         String genre = value[2].trim();                          // Trims whitespaces
                         // splitting genres
-                        ArrayList<String> genresAL = new ArrayList<>();           // Creating an ArrayList for genres, meeant to be a parameter for the media constructor
-                        String[] genreArray = genre.split(",");             // We're splitting the genre string at ","
+                        ArrayList<String> genresAL = new ArrayList<>();          // Creating an ArrayList for genres, meeant to be a parameter for the media constructor
+                        String[] genreArray = genre.split(",");            // We're splitting the genre string at ","
                         for (String str : genreArray){
                             genresAL.add(str);                                    // Iteration through the array we've just created and adding each index to and the ArrayList we're returning as part of the Media object
                         }   // end for-each loop
@@ -36,35 +40,8 @@ public class FileIO {
                         media = new Movie(title, rating, releaseYear, genresAL); // Instantiating the media Object we declared in line 13
                                                                                  // In this case we instance it as a Movie Object.
                         data.add(media);                                         // We add the newly instantiated media Object to the 'data' ArrayList which we return at the end of the func
-
-                    } else if (value.length == 5){                               // We hardcoded 5 since there is only 5 values in series (Title, releaseYear, Genre, Rating, season)
-                        HashMap<Integer , Integer > seasonsAndEpisodes = new HashMap<>();   // Declaring a HasMap we'll instantiate once we've split season and episodes from each other
-                        // parsing and trimming values
-                        String title = value[0].trim();                          // The first split is always the title
-                        String runningYears = value[1].trim();                   // We're trimming value[1] since there is whitespace at every line.
-                        String genre = value[2].trim();                          // We're trimming the whitespaces in genre
-                        ArrayList<String> genresAL = new ArrayList<>();           // Creating an ArrayList for genres
-                        String[] genreArray = genre.split(",");             // we're splitting the genre string at ","
-                        // splitting genres
-                        for (String str : genreArray){
-                            genresAL.add(str);                                    // Iteration through the array we've just created and adding each index to and the ArrayList we're returning as part of the Media object
-                        }   // end for-each loop
-                        float rating = Float.parseFloat(                         // We're using parseInt to typecast from string to float
-                                value[3].replace(',','.').trim());// We're trimming value[3] since there is at every line there is whitespace.
-                                                                                 // We're replacing "," with "." because Oracle is a US based company any there number system is wrong
-                        String seasonData = value[4];
-                        String[] pairs = seasonData.split(",");             // Creates a new array for storing different seasons and their respective episode amounts
-
-                        // For-each loop is used to separate season number from the amount of episodes
-                        for(String pair : pairs){
-                            String[] parts = pair.split("-");               // String array stores the split between seasons and episodes in that order
-                            int season = Integer.parseInt(parts[0].trim());       // seasons is always parts[0]
-                            int episode = Integer.parseInt(parts[1].trim());      // episode is always parts[1]
-                            seasonsAndEpisodes.put(season, episode);              // Add seasons as key and an episodes as values to seasonsAndEpisodes HashMap
-                        }   // end for-each loop
-                        media = new Series(title, rating, runningYears, genresAL, seasonsAndEpisodes);
-                        data.add(media);                                          // Adds the media to our ArrayList which we returns
-                    } else if (value.length != 4 || value.length != 5){
+                                                                                 // Adds the media to our ArrayList which we returns
+                    } else {
                         System.out.println("Invalid input!\nGive me a valid input pleeeeeeeease!");
                         throw new IllegalArgumentException();
                     }   // end if-else block
@@ -78,6 +55,55 @@ public class FileIO {
         return data;                                                               // returns the ArrayList we declared in line 12
                                                                                    // & we have added a Media Obejct at every urn of the while loop
     }   // end readMediaData()
+
+    public static ArrayList<Media> readSeriesData(String path){
+        ArrayList<Media> data = new ArrayList();
+        Media media;
+        File file = new File(path);
+
+            try (Scanner scan = new Scanner(file)){
+                while(scan.hasNextLine()){
+                    String line = scan.nextLine();
+                    String[] value = line.split(";");
+
+                    try {
+                            HashMap<Integer, Integer > seasonsAndEpisodes = new HashMap<>();   // Declaring a HasMap we'll instantiate once we've split season and episodes from each other
+                            // parsing and trimming values
+                            String title = value[0].trim();                                    // The first split is always the title
+                            String runningYears = value[1].trim();                             // We're trimming value[1] since there is whitespace at every line.
+                            String genre = value[2].trim();                                    // We're trimming the whitespaces in genre
+                            ArrayList<String> genresAL = new ArrayList<>();                    // Creating an ArrayList for genres
+                            String[] genreArray = genre.split(",");                      // we're splitting the genre string at ","
+                            // splitting genres
+                            for (String str : genreArray){
+                                genresAL.add(str);                                             // Iteration through the array we've just created and adding each index to and the ArrayList we're returning as part of the Media object
+                            }   // end for-each loop
+                            float rating = Float.parseFloat(                                   // We're using parseInt to typecast from string to float
+                                    value[3].replace(',','.').trim());         // We're trimming value[3] since there is at every line there is whitespace.
+                                                                                                // We're replacing "," with "." because Oracle is a US based company any there number system is wrong
+                            String seasonData = value[4];
+                            String[] pairs = seasonData.split(",");             // Creates a new array for storing different seasons and their respective episode amounts
+
+                            // For-each loop is used to separate season number from the amount of episodes
+                            for(String pair : pairs){
+                                String[] parts = pair.split("-");               // String array stores the split between seasons and episodes in that order
+                                int season = Integer.parseInt(parts[0].trim());       // seasons is always parts[0]
+                                int episode = Integer.parseInt(parts[1].trim());      // episode is always parts[1]
+                                seasonsAndEpisodes.put(season, episode);              // Add seasons as key and an episodes as values to seasonsAndEpisodes HashMap
+                            }   // end for-each loop
+                            media = new Series(title, rating, runningYears, genresAL, seasonsAndEpisodes);
+                            data.add(media);
+                                                                                      // end if-else block
+                    } catch (NumberFormatException nfe){
+                        nfe.printStackTrace();
+                    }   // end inner try-catch block
+                }   // end while loop
+            }catch(FileNotFoundException fnfe){                                       // In case the file isn't found at the given path
+                fnfe.printStackTrace();
+            }  // end out try-catch block
+
+        return data;
+    }   // end readSeriesData()
 
     public void writeData(ArrayList<String> items, String path) {
         try {

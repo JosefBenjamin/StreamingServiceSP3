@@ -13,7 +13,17 @@ public class Series extends Media{
         return null;
     }
 
+    @Override
+    public String toString(){
+        String result = "";
+        result += "Series:\n";
+        result += "Title: " + getTitle()+"\n";
+        result += "Running Years: " + getRunningYears()+"\n";
+        result += "Genre(s): " + getGenre() +"\n";
+        result += "IMDB Rating: " + getRating()+"\n";
+        return result;
+    }   // end toString()
 
 
-}
+}   // end Series
 
