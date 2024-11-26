@@ -9,10 +9,9 @@ public class Movie extends Media {
     }   // constructor
 
 
-    @Override                           //Overrides the toString method
-    public String toString() {          //Makes a new toString method so that can return a string instead of memory address
-        String result = "";
-        result += "Movie:\n";
+    @Override                           // Overrides the toString method
+    public String toString() {          // Makes a new toString method so that can return a string instead of memory address
+        String result = "\n";
         result += "Title: " + getTitle() + "\n";
         result += "Release Year: " + getReleaseYear() + "\n";
         result += "Genre(s): " + getGenre() + "\n";

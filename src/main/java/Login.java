@@ -5,14 +5,14 @@ import java.util.Scanner;
 import java.io.File;
 
 public class Login {
-    private static final String USER_DATA = "src/main/java/files/Users.txt";
+    private static final String USER_DATA = "src/main/java/files/Users.txt";               // This attribute ensures that path to .txt file is always predetermined
     //Start of constructor
     public Login() {
 
     } //End of constructor
 
-    public void createUser(String username, String password) {
-        if (User.isUsernameTaken(username, USER_DATA)) {
+    public void createUser(String username, String password) {                              // method returns nothing takes two parameters String username and String password
+        if (User.isUsernameTaken(username, USER_DATA)) {                                    // checks condition from class User with methods isUsernameTaken, thus if username matches this code block executes
             System.out.println("Sorry! Username not available");
         } else {
             try (FileWriter writer = new FileWriter(USER_DATA, true)) {
@@ -36,7 +36,8 @@ public class Login {
                     String line = scan.nextLine();                                            // Declares and instantiates the variable line as the current/next line
                     String[] value = line.split("::");                                  // Declares and instantiates an array 'sections'.
                     if (value.length == 3 && value[0].equals(username) && value[1].equals(password)) {
-                          result = true;                                                      // When func returns true it means that the username is preoccupied
+                        System.out.println("You've successfully logged in!\n");
+                          return true;                                                      // When func returns true it means that the username is preoccupied
                     }   // if statement
                 }   // end while loop
             } catch (FileNotFoundException e) {

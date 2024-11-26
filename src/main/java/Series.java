@@ -4,7 +4,7 @@ import java.util.HashMap;
 public class Series extends Media{
 
 
-    public Series(String title, float rating, String runningYears, ArrayList<String> genre, HashMap<Integer,Integer> seasonAndEpisodes){
+    public Series(String title, float rating, ArrayList<Integer> runningYears, ArrayList<String> genre, HashMap<Integer,Integer> seasonAndEpisodes){
         super(title, rating, runningYears, genre, seasonAndEpisodes);
     } //End of constructor
 
@@ -15,8 +15,7 @@ public class Series extends Media{
 
     @Override
     public String toString(){
-        String result = "";
-        result += "Series:\n";
+        String result = "\n";
         result += "Title: " + getTitle()+"\n";
         result += "Running Years: " + getRunningYears()+"\n";
         result += "Genre(s): " + getGenre() +"\n";

@@ -1,3 +1,8 @@
 Admin::SuddMienPic::0
 defaultUser::test::1
 JuiceControlTheWeather::SuddMienPic::1
+Username::Password::1
+juice_control_the_weather::Hitler_did_nothing_wrong::1
+Hitler::Stalin::1
+sd::ft::1
+dftyu::fgyui::1

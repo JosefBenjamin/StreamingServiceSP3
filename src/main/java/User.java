@@ -22,6 +22,9 @@ class User {
 
     // make it so user cannot use "::" in a password or username;
 
+    public String getusername(){
+        return this.username;
+    }
     public boolean  isAdmin(){
         boolean result = false;
         if (this.isAdmin){
@@ -38,8 +41,8 @@ class User {
         later.remove(media);
     }   // end removeFromLater()
 
-    public static void addToSeen(Media media){
-        seen.add(media);
+    public  void addToSeen(Media media){
+        this.seen.add(media);
     }   // end addToSeen()
 
     public  void removeFromSeen(Media media){

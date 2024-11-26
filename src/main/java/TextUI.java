@@ -4,21 +4,18 @@ import java.util.Scanner;
 public class TextUI {
     Scanner scan = new Scanner(System.in);
 
-    public ArrayList<String> promptChoice(ArrayList<String> options,
-                                          int limit,
-                                          String msg) {
-        ArrayList<String> choices = new ArrayList<String>();                        //Lave en beholder til at gemme brugerens valg
+    public ArrayList<String> promptChoice(ArrayList<String> options, int limit, String msg) {               //
+        ArrayList<String> saveUserChoices = new ArrayList<String>();                       //Temporarily saves users choices as long as program is running
         int count = 1;
-        while (choices.size() < limit) {                                         //tjekke om brugeren skal vælge flere drinks
+        while (saveUserChoices.size() < limit) {                                           //
             String choice = promptText(count + ":");
-            choices.add(choice);
+            saveUserChoices.add(choice);
             count++;
         }
-        return choices;
+        return saveUserChoices;
     }
 
-    public void displayList(ArrayList<Media> options,
-                            String msg) {
+    public void displayList(ArrayList<Media> options, String msg) {
         System.out.println("*******");
         System.out.println(msg);
         System.out.println("*******");
@@ -31,32 +28,28 @@ public class TextUI {
         }   // for-loop
     }   // end displayList
 
-    public String promptText(String msg) {
-        System.out.println(msg);                                            //Stille brugeren et spørgsmål
+    public boolean promptBinary(String msg){
+        String input = promptText(msg);
+        if(input.equalsIgnoreCase("Y")){
+            return true;
+        }
+        else if(input.equalsIgnoreCase("N")){
+            return false;
+        }
+        return promptBinary(msg);
+    }
+
+    public String promptText(String msg) {                                  // promptText method allows the user to make a String text input
+        System.out.println(msg);                                            // msg parameter displays messages to user
         String input = scan.nextLine();
         return input;
     } // end promptText()
 
     public int promptNumeric(String msg) {
-        System.out.println(msg);                                            //Stille brugeren et spørgsmål
-        String input = scan.nextLine();                                     //Give brugere et sted at placere sit svar og vente på svaret
-        int number = Integer.parseInt(input);                               //Konvertere svaret til et tal
+        System.out.println(msg);                                            // promptNumeric method allows the user to make a String text input
+        String input = scan.nextLine();                                     // Give brugere et sted at placere sit svar og vente på svaret
+        int number = Integer.parseInt(input);                               // Konvertere svaret til et tal
         return number;
     }   // end promptNumeric()
 }
 
-/*
-    public void displayList(ArrayList<String> options,
-                            String msg){
-        System.out.println("*******");
-        System.out.println(msg);
-        System.out.println("*******");
-
-        int i = 1;
-        for (String option : options) {
-            System.out.println(i+": "+option);
-            i++;
-        }   // for-loop
-    }   // end displayList
-
- */
