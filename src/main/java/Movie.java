@@ -1,5 +1,3 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.ArrayList;
 
 public class Movie extends Media {
@@ -19,3 +17,4 @@ public class Movie extends Media {
         return result;
     }
 }
+

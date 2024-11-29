@@ -1,8 +1,10 @@
-Admin::SuddMienPic::0
+Admin::nimdA::0
 defaultUser::test::1
-JuiceControlTheWeather::SuddMienPic::1
 Username::Password::1
-juice_control_the_weather::Hitler_did_nothing_wrong::1
-Hitler::Stalin::1
 sd::ft::1
 dftyu::fgyui::1
+olivia::123::1
+NewUserName::1234::1
+es::ben::1
+SomethingNew::1234::1
+asd::asd::1

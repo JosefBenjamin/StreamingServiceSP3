@@ -28,15 +28,15 @@ public class TextUI {
         }   // for-loop
     }   // end displayList
 
-    public boolean promptBinary(String msg){
+    public boolean promptBinary(String msg, String choiceTrue, String choiceFalse){
         String input = promptText(msg);
-        if(input.equalsIgnoreCase("Y")){
+        if(input.equalsIgnoreCase(choiceTrue)){
             return true;
         }
-        else if(input.equalsIgnoreCase("N")){
+        else if(input.equalsIgnoreCase(choiceFalse)){
             return false;
         }
-        return promptBinary(msg);
+        return promptBinary(msg, choiceTrue, choiceFalse);
     }
 
     public String promptText(String msg) {                                  // promptText method allows the user to make a String text input
